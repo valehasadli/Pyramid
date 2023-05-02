@@ -7,7 +7,7 @@ import com.ncr.test.pyramid.solver.PyramidSolver;
 import com.ncr.test.pyramid.solver.impl.YourSolver;
 
 /**
- * TASK: This is your 2nd task. 
+ * TASK: This is your 2nd task.
  * Make sure your algorithm will work well with bigger data as generated below.
  */
 public class YourProgram {
@@ -23,5 +23,5 @@ public class YourProgram {
         System.out.println("Maximum path sum for this pyramid is :");
         System.out.println(solver.pyramidMaximumTotal(pyramid));
     }
-    
+
 }

@@ -4,35 +4,56 @@ import com.ncr.test.pyramid.data.Pyramid;
 import com.ncr.test.pyramid.solver.PyramidSolver;
 
 /**
- * TASK: There is something wrong here. A few things actually...
+ * Memory Usage: The current implementation uses recursion to calculate the maximum total.
+ * Recursion can be inefficient and consume a large amount of memory for large pyramids
+ * **
+ * **
+ * Time Complexity: The current implementation has an exponential time complexity of O(2^n),
+ * where n is the number of rows in the pyramid. This is because each call to getTotalAbove makes two recursive calls.
+ * **
+ * **
+ * Performance Optimization: The current implementation is not optimized for large pyramids.
+ * To handle larger inputs efficiently, an alternative approach, such as dynamic programming or iterative methods
  */
 public class NaivePyramidSolver implements PyramidSolver {
-    /**
-     * The getTotalAbove method recursively calculates
-     * the total by summing the value at the current position with the maximum total from the row above,
-     * either to the left or right.
-     * However, it does not handle the case when the pyramid is empty.
-     * To address this, you can add a check at the beginning of the pyramidMaximumTotal method to
-     * return 0 if the pyramid is empty.
-     */
+
     @Override
     public long pyramidMaximumTotal(Pyramid pyramid) {
-        if (pyramid.getRows() == 0) {
-            return 0;
+        /**
+         * The code does not explicitly handle invalid inputs:
+         * such as a null pyramid or pyramids with inconsistent row lengths.
+         * */
+        if (pyramid == null || pyramid.getRows() == 0 || pyramid.getData() == null) {
+            throw new IllegalArgumentException("Invalid pyramid input");
         }
+
         return getTotalAbove(pyramid.getRows() - 1, 0, pyramid);
     }
 
-    /**
-     * The getTotalAbove method's base case is incorrect.
-     * Currently, the method returns 0 when the row parameter equals 0.
-     * However, since the rows in the pyramid are 0-indexed, the base case should be when row equals -1,
-     * indicating that we have reached the top of the pyramid.
-     * The corrected base case should be if (row == -1) return 0;.
-     */
     private long getTotalAbove(int row, int column, Pyramid pyramid) {
-        if (row == -1) {
-            return 0;
+
+        /**
+         * row < 0: Checks if the row index is less than 0.
+         * If it is, it means the index is negative, which is invalid.
+         * row >= pyramid.getRows(): Checks if the row index is greater than
+         * or equal to the number of rows in the pyramid.
+         * If it is, it means the index is out of bounds,
+         * as valid row indices range from 0 to pyramid.getRows() - 1.
+         * column < 0: Checks if the column index is less than 0.
+         * If it is, it means the index is negative, which is invalid.
+         * column >= pyramid.getData()[row].length:
+         * Checks if the column index is greater than or equal to the length of the row
+         * in the data array corresponding to the given row index.
+         * If it is, it means the index is out of bounds, as valid column indices for a given row range
+         * from 0 to pyramid.getData()[row].length - 1.
+         */
+        if (row < 0 || row >= pyramid.getRows() || column < 0 || column >= pyramid.getData()[row].length) {
+            throw new IllegalArgumentException("Invalid row or column index");
+        }
+
+        if (row == 0) {
+            // Return the value at the top of the pyramid as the base case for a single-row pyramid.
+            return pyramid.get(row, column);
         }
 
         int myValue = pyramid.get(row, column);
