@@ -14,16 +14,17 @@ public class YourSolverTest {
     private static final int MAX_DEPTH = 100;
 
     private static final int[][] SAMPLE_DATA = {
-            { 5, 9, 8, 4 },
-            { 6, 4, 5, 0 },
-            { 6, 7, 0, 0 },
-            { 3, 0, 0, 0 }
+            {5, 9, 8, 4},
+            {6, 4, 5, 0},
+            {6, 7, 0, 0},
+            {3, 0, 0, 0}
     };
+
     private static final int[][] DEMO_DATA = {
-            { 59, 207, 98, 95 },
-            { 87,   1, 70,  0 },
-            { 36,  41,  0,  0 },
-            { 23,   0,  0,  0 }
+            {59, 207, 98, 95},
+            {87, 1, 70, 0},
+            {36, 41, 0, 0},
+            {23, 0, 0, 0}
     };
 
     protected PyramidSolver solver;
